@@ -7,6 +7,9 @@ class City:
         self.name = name
         self.lat = lat
         self.lon = lon
+
+    def __repr__(self):
+        return "{} {},{}".format(self.name, self.lat, self.lon)
   
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
@@ -30,7 +33,7 @@ def cityreader(cities=[]):
       readCSV = csv.reader(csvfile, delimiter = ',')
       for i, row in enumerate(readCSV):
         if i != 0:
-            new_city = City(row[0], row[3], row[4])
+            new_city = City(row[0], float(row[3]), float(row[4]))
             cities.append(new_city)
     return cities
 
@@ -70,6 +73,8 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+# lat1, lon1 = input("Enter lat1,lon1: ".split(','))
+# lat2, lon2 = input("Enter lat2,lon2: ".split(','))
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
@@ -78,5 +83,16 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+  lat1 = float(lat1)
+  lat2 = float(lat2)
+  lon1 = float(lon1)
+  lon2 = float(lon2)
+
+  # def compare_lat(lat1, lat2):
+    
+
+  # for city in cities:
+  #   if city.lat 
+
 
   return within
