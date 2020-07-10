@@ -1,7 +1,16 @@
+import csv
+
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
+class City:
+    def __init__(self, name, lat, lon):
+        self.name = name
+        self.lat = lat
+        self.lon = lon
 
-
+    def __repr__(self):
+        return f"{self.name}: ({self.lat},{self.lon})"
+  
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
 #
@@ -20,7 +29,11 @@ def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
+    with open('cities.csv') as csvfile:
+      readCSV = csv.reader(csvfile, delimiter = ',')
+      for i, row in enumerate(readCSV):
+        if i != 0:
+            cities.append(City(row[0], float(row[3]), float(row[4])))
     return cities
 
 cityreader(cities)
@@ -59,6 +72,28 @@ for c in cities:
 # Salt Lake City: (40.7774,-111.9301)
 
 # TODO Get latitude and longitude values from the user
+input1 = input("Enter lat1,lon1: ")
+input2 = input("Enter lat2,lon2: ")
+
+lat1, lon1 = input1.split(',')
+lat2, lon2 = input2.split(',')
+
+lat1 = float(lat1)
+lat2 = float(lat2)
+lon1 = float(lon1)
+lon2 = float(lon2)
+
+def lat1_greater(lat1, lat2):
+    if lat1 >= lat2:
+      return True
+    else:
+      return False
+
+def lon1_greater(lon1, lon2):
+  if lon1 >= lon2:
+    return True
+  else:
+    return False
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
@@ -67,5 +102,27 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+
+  for city in cities:
+    if lat1_greater(lat1, lat2):
+      if city.lat <= lat1 and city.lat >= lat2:
+        pass
+      else:
+        continue
+    else:
+      if city.lat >= lat1 and city.lat <= lat2:
+        pass
+      else:
+        continue
+    if lon1_greater(lon1, lon2):
+      if city.lon <= lon1 and city.lon >= lon2:
+        within.append(city)
+      else:
+        continue
+    else:
+      if city.lon >= lon1 and city.lon <= lon2:
+        within.append(city)
+      else:
+        continue
 
   return within
